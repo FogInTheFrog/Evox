@@ -1,17 +1,13 @@
 from datetime import date
 from fastapi import FastAPI
+from .views import router as api_router
 
 app = FastAPI()
-app.counter = 0
+
+app.include_router(api_router)
 
 
 @app.get("/")
 def hi():
     today = date.today()
-    return {"message": str(today.year)}
-
-
-@app.get("/counter")
-def counter():
-    app.counter += 1
-    return app.counter
+    return {"Hello, today is": str(today.year)}
