@@ -2,7 +2,6 @@ from sqlalchemy import (
     Column,
     Date,
     Integer,
-    SmallInteger,
     String,
 )
 from sqlalchemy.ext.declarative import declarative_base
@@ -13,7 +12,6 @@ Base = declarative_base()
 
 class Message(Base):
     __tablename__ = "messages"
-
     MessageID = Column(Integer, primary_key=True)
     # MessageID = Column(Integer, primary_key=True, index=True)
     # Title = Column(String(30))
