@@ -10,7 +10,7 @@ router = APIRouter()
 
 
 @router.get("/messages", response_model=List[schemas.Message])
-async def get_messages(db: Session = Depends(get_db())):
+async def get_messages(db: Session = Depends(get_db)):
     db_messages = crud.get_messages(db)
     if db_messages is None:
         raise HTTPException(status_code=404, detail="not found messageess")

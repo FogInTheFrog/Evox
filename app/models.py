@@ -1,4 +1,3 @@
-# coding: utf-8
 from sqlalchemy import CheckConstraint, Column, Integer, String, text
 from sqlalchemy.ext.declarative import declarative_base
 
