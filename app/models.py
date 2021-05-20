@@ -4,21 +4,22 @@ from sqlalchemy import (
     Integer,
     String,
 )
-from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.sql.sqltypes import NullType
 
 Base = declarative_base()
+metadata = Base.metadata
 
 
 class Message(Base):
     __tablename__ = "messages"
+
     MessageID = Column(Integer, primary_key=True)
-    # MessageID = Column(Integer, primary_key=True, index=True)
-    # Title = Column(String(30))
-    Body = Column(String(160))
-    Author = Column(String(40))
-    Views = Column(Integer, default=0)
-    PublishDate = Column(Date, default=datetime.now)
+    Body = Column(String(160), nullable=False)
+    Author = Column(String(40), nullable=False)
+    Views = Column(Integer)
+    PublishDate = Column(Date)
 
 
 # class User(Base):

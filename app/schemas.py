@@ -5,7 +5,6 @@ from datetime import datetime
 
 class Message(BaseModel):
     MessageID: NonNegativeInt
-    # Title: Optional[constr(max_length=30)] = None
     Body: constr(min_length=1, max_length=160)
     Author: constr(max_length=40)
     Views: NonNegativeInt
