@@ -27,7 +27,7 @@ def insert_new_message(db: Session, body: str):
         msg_id = db.execute("SELECT * FROM next_msg_id").fetchone()
         print(msg_id, type(msg_id))
         (a, b, c) = msg_id
-        db.execute("INSERT INTO messages (MessageID, Body, Views) VALUES ({}, {}, {})".format(a, body, 0))
+        db.execute("INSERT INTO messages (MessageID, Body, Views) VALUES ({}, '{}', {})".format(a, body, 0))
         db.commit()
         return msg_id
     raise HTTPException(status_code=401, detail="Incorrect message length.")
