@@ -48,7 +48,7 @@ def authenticate_user(db: Session, username: str, password: str):
     user = get_user_by_username(db, username)
     if not user:
         return False
-    user_db = User(user)
+    user_db = User.from_orm(user)
     if not verify_password(password, user_db.hashed_password):
         return False
     return user_db
