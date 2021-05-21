@@ -36,9 +36,6 @@ def validate_token(db: Session, token: str):
         token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
-    user = get_user_by_username(db, token_data.username)
-    if user is None:
-        raise credentials_exception
     return True
 
 
@@ -48,6 +45,8 @@ async def get_current_user(db: Session = Depends(get_db), token: str = Depends(o
         username: str = payload.get("sub")
         token_data = TokenData(username=username)
         user = get_user_by_username(db, token_data.username)
+        if user is None:
+            raise HTTPException(status_code=401, detail="Unsuccessful authorisation")
         return user
     else:
         raise HTTPException(status_code=401, detail="can't get current user")
