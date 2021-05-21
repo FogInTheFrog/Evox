@@ -5,7 +5,6 @@ from fastapi.security import OAuth2PasswordRequestForm
 from datetime import timedelta
 
 from . import schemas, crud
-from .crud import insert_new_message
 from .database import get_db
 from .login import get_current_user, authenticate_user, ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, oauth2_scheme, \
     validate_token
@@ -54,7 +53,7 @@ async def get_messages(msg_id: int, db: Session = Depends(get_db)):
 @router.post("/messages/create", status_code=201)
 async def create_message(message_body: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     if validate_token(token):
-        new_msg_id = insert_new_message(db, message_body)
+        new_msg_id = crud.insert_new_message(db, message_body)
         return {"messageID": new_msg_id, "content": message_body}
     else:
         raise HTTPException(status_code=403, detail="Invalid token or expired token.")
