@@ -9,7 +9,10 @@ def get_messages(db: Session):
 
 
 def get_message_by_id(db: Session, message_id: int):
-    msg_dict = db.query(models.Message).filter(models.Message.MessageID == message_id).one()
+    msg_dict = db.query(models.Message).filter(models.Message.MessageID == message_id)
+    if not msg_dict:
+        raise HTTPException(status_code=404, detail="Message does not exist.")
+    msg_dict.one()
     msg_dict.Views = msg_dict.Views + 1
     db.commit()
     return (
@@ -47,6 +50,9 @@ def edit_message(db: Session, body: str, msg_id: int):
 
 
 def delete_message(db: Session, msg_id: int):
-    msg_dict = db.query(models.Message).filter(models.Message.MessageID == msg_id).one()
+    msg_dict = db.query(models.Message).filter(models.Message.MessageID == msg_id)
+    if not msg_dict:
+        raise HTTPException(status_code=404, detail="Message does not exist.")
+    msg_dict.one()
     db.delete(msg_dict)
     db.commit()
