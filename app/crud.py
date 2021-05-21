@@ -23,7 +23,8 @@ def get_user_by_username(db: Session, username: str):
 def insert_new_message(db: Session, body: str):
     if 160 >= body.__len__() > 0:
         db.begin()
-        msg_id = db.execute("SELECT nextval('next_msg_id')").fetchone()
+        db.execute("SELECT nextval('next_msg_id')")
+        msg_id = db.execute("SELECT * FROM next_msg_id").fetchone()
         db.execute("INSERT INTO messages (MessageID, Body, Views) VALUES ({}, {}, {})".format(msg_id, body, 0))
         db.commit()
         return msg_id
