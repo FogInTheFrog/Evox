@@ -17,7 +17,7 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 1
 
 
-def validate_token(db: Session, token: str):
+def validate_token(token: str):
     token_exception = HTTPException(
         status_code=403,
         detail="Invalid token or expired token.",
@@ -33,14 +33,13 @@ def validate_token(db: Session, token: str):
         username: str = payload.get("sub")
         if username is None:
             raise token_exception
-        token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
     return True
 
 
 async def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    if validate_token(db, token):
+    if validate_token(token):
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         token_data = TokenData(username=username)

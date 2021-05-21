@@ -23,7 +23,7 @@ def get_user_by_username(db: Session, username: str):
 
 def insert_new_message(db: Session, token: str, body: str):
     if 160 >= body.__len__() > 0:
-        if validate_token(db, token):
+        if validate_token(token):
             db.begin()
             msg_id = db.execute("SELECT nextval('next_msg_id')")
             db.execute("INSERT INTO messages VALUES (?)", (msg_id, body,))
