@@ -21,7 +21,7 @@ async def get_messages(db: Session = Depends(get_db)):
     return db_messages
 
 
-@router.get("/users/me")
+@router.get("/users/me", response_model=dict)
 async def read_users_me(current_user: User = Depends(get_current_user)):
     return {"username:": current_user.Username, "full name": current_user.Fullname}
 
