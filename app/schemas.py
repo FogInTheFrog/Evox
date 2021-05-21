@@ -11,12 +11,9 @@ class Message(BaseModel):
         orm_mode = True
 
 
-class User(BaseModel):
+class UserInDB(BaseModel):
     username: str
     full_name: Optional[str] = None
-
-
-class UserInDB(User):
     hashed_password: str
 
 
