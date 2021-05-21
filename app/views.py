@@ -4,6 +4,9 @@ from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm
 from datetime import timedelta
 
+from .crud import insert_new_message
+from .login import oauth2_scheme
+
 from . import crud, schemas
 
 from .database import get_db
@@ -17,7 +20,7 @@ router = APIRouter()
 async def get_messages(db: Session = Depends(get_db)):
     db_messages = crud.get_messages(db)
     if db_messages is None:
-        raise HTTPException(status_code=404, detail="not found messageess")
+        raise HTTPException(status_code=404, detail="messages not found")
     return db_messages
 
 
@@ -40,3 +43,18 @@ async def login_for_access_token(db: Session = Depends(get_db), form_data: OAuth
         data={"sub": user.Username}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+@router.get("/messages/{msg_id}", response_model=schemas.Message)
+async def get_messages(msg_id: int, db: Session = Depends(get_db)):
+    db_messages = crud.get_message_by_id(db, msg_id)
+    if db_messages is None:
+        raise HTTPException(status_code=404, detail="message not found")
+    return db_messages
+
+
+@router.post("/create", status_code=201)
+async def create_message(message_body: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    new_msg_id = insert_new_message(db, token, message_body)
+    if new_msg_id:
+        return {"messageID": new_msg_id, "content": message_body}

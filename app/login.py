@@ -17,7 +17,12 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 1
 
 
-async def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+def validate_token(db: Session, token: str):
+    token_exception = HTTPException(
+        status_code=403,
+        detail="Invalid token or expired token.",
+        headers={"WWW-Authenticate": "Bearer"}
+    )
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -27,16 +32,27 @@ async def get_current_user(db: Session = Depends(get_db), token: str = Depends(o
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
-            raise credentials_exception
+            raise token_exception
         token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
     user = get_user_by_username(db, token_data.username)
     if user is None:
         raise credentials_exception
-    return user
+    return True
 
-# ====================================================================
+
+async def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    if validate_token(db, token):
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        token_data = TokenData(username=username)
+        user = get_user_by_username(db, token_data.username)
+        return user
+    else:
+        raise HTTPException(status_code=401, detail="can't get current user")
+
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
