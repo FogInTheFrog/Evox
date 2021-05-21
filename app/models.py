@@ -15,3 +15,11 @@ class Message(Base):
     MessageID = Column(Integer, primary_key=True)
     Body = Column(String(160), nullable=False)
     Views = Column(Integer, server_default=text("0"))
+
+
+class User(Base):
+    __tablename__ = 'users'
+
+    Username = Column(String(20), primary_key=True)
+    Fullname = Column(String(30))
+    Hashed_password = Column(String(256), nullable=False)
