@@ -15,31 +15,31 @@
 
 ### Request
 
-'GET /messages'
+`GET /messages`
 
 	curl -X 'GET' 'https://daft-evox.herokuapp.com/messages' -H 'accept: application/json'
 
 
 ### Response body
 
-[
-  {
-    "MessageID": 13,
-    "Body": "Henlo Worlnd",
-    "Views": 0
-  },
-  {
-    "MessageID": 12,
-    "Body": "Hallo Welt!",
-    "Views": 16
-  }
-]
+	[
+	  {
+	    "MessageID": 13,
+    	"Body": "Henlo Worlnd",
+ 	   "Views": 0
+  	},
+  	{
+   	 "MessageID": 12,
+    	"Body": "Hallo Welt!",
+    	"Views": 16
+  	}
+	]
 
 ## Get message specified by id
 
 ### Request
 
-'GET /messages/{msg_id}'
+`GET /messages/{msg_id}`
 
 	curl -X 'GET' 'https:/curl -X 'GET' \
   'https://daft-evox.herokuapp.com/messages/13' \
@@ -59,7 +59,7 @@
 
 ### Request
 
-'GET /messages/{msg_id}'
+`GET /messages/{msg_id}`
 
 	curl -X 'GET' 'https:/curl -X 'GET' \
   'https://daft-evox.herokuapp.com/messages/13' \
@@ -79,7 +79,7 @@
 
 ### Request
 
-'POST /token'
+`POST /token`
 
 curl -X 'POST' \
   'https://daft-evox.herokuapp.com/token' \
