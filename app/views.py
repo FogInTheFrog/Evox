@@ -54,6 +54,24 @@ async def get_messages(msg_id: int, db: Session = Depends(get_db)):
 async def create_message(message_body: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     if validate_token(token):
         new_msg_id = crud.insert_new_message(db, message_body)
-        return {"messageID": new_msg_id, "content": message_body}
+        return {"New Message Created with ID:": new_msg_id, "content": message_body}
+    else:
+        raise HTTPException(status_code=403, detail="Invalid token or expired token.")
+
+
+@router.patch("/messages/edit/{msg_id}", response_model=schemas.Message)
+async def update_message_body(msg_id: int, message_body: str, db: Session = Depends(get_db),
+                              token: str = Depends(oauth2_scheme)):
+    if validate_token(token):
+        return crud.edit_message(db, message_body, msg_id)
+    else:
+        raise HTTPException(status_code=403, detail="Invalid token or expired token.")
+
+
+@router.delete("/messages/delete/{msg_id}", status_code=202)
+async def delete_message(msg_id: int,  db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    if validate_token(token):
+        crud.delete_message(db, msg_id)
+        return {"Message Successfully Deleted"}
     else:
         raise HTTPException(status_code=403, detail="Invalid token or expired token.")

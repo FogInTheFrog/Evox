@@ -33,3 +33,20 @@ def insert_new_message(db: Session, body: str):
         db.commit()
         return msg_id
     raise HTTPException(status_code=401, detail="Incorrect message length.")
+
+
+def edit_message(db: Session, body: str, msg_id: int):
+    if 160 >= body.__len__() > 0:
+        db.begin()
+        msg_dict = get_message_by_id(db, msg_id)
+        msg_dict.Body = body
+        msg_dict.Views = 0
+        db.commit()
+        return msg_dict
+    raise HTTPException(status_code=401, detail="Incorrect message length.")
+
+
+def delete_message(db: Session, msg_id: int):
+    msg_dict = db.query(models.Message).filter(models.Message.MessageID == msg_id).one()
+    db.delete(msg_dict)
+    db.commit()
