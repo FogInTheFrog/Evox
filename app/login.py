@@ -46,12 +46,13 @@ def verify_password(plain_password, hashed_password):
 
 def authenticate_user(db: Session, username: str, password: str):
     user = get_user_by_username(db, username)
+    print(user.__dict__)
     print(user.Username, user.Hashed_password, user.Fullname)
     user_db = User.from_orm(user)
     if not user:
         return False
-    print(user_db.username, user_db.hashed_password, user_db.full_name)
-    if not verify_password(password, user_db.hashed_password):
+    print(user_db.Username, user_db.Hashed_password, user_db.Fullname)
+    if not verify_password(password, user_db.Hashed_password):
         return False
     return user_db
 

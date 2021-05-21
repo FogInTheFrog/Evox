@@ -12,9 +12,9 @@ class Message(BaseModel):
 
 
 class User(BaseModel):
-    username: str
-    full_name: Optional[str] = None
-    hashed_password: str
+    Username: str
+    Fullname: Optional[str] = None
+    Hashed_password: str
 
     class Config:
         orm_mode = True
