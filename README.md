@@ -73,7 +73,8 @@
 	}
 
 
-## Authorize to have access to create, edit and delete messages. Token is valid for 30 minutes
+## Authorize 
+Authorize to have access to create, edit and delete messages. Token is valid for 30 minutes
 
 ### Request
 
@@ -100,15 +101,15 @@
 
 #### Request URL
 
-https://daft-evox.herokuapp.com/messages/create?message_body=witam
+	https://daft-evox.herokuapp.com/messages/create?message_body=witam
 
 
 ### Response body
 
-{
-  "New Message Created with ID:": 15,
-  "content": "witam"
-}
+	{
+ 	 "New Message Created with ID:": 15,
+ 	 "content": "witam"
+	}
 
 ## Edit message
 
@@ -116,21 +117,21 @@ https://daft-evox.herokuapp.com/messages/create?message_body=witam
 
 `PATCH /messages/edit/{msg_id}`
 
-curl -X 'PATCH' \
-  'https://daft-evox.herokuapp.com/messages/edit/15?message_body=Guten%20Tag' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMTYzNTA0MH0.aB_GhVF2HUE6WrV6i3-HX_OA4VPMveyL8bW3JcGueOE'
+	curl -X 'PATCH' \
+ 	 'https://daft-evox.herokuapp.com/messages/edit/15?message_body=Guten%20Tag' \
+ 	 -H 'accept: application/json' \
+ 	 -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMTYzNTA0MH0.aB_GhVF2HUE6WrV6i3-HX_OA4VPMveyL8bW3JcGueOE'
 
-Request URL
-https://daft-evox.herokuapp.com/messages/edit/15?message_body=Guten%20Tag
+#### Request URL
+	https://daft-evox.herokuapp.com/messages/edit/15?message_body=Guten%20Tag
 
 ### Response body
 
-{
-  "MessageID": 15,
-  "Body": "Guten Tag",
-  "Views": 0
-}
+	{
+ 	 "MessageID": 15,
+ 	 "Body": "Guten Tag",
+  	 "Views": 0
+	}
 
 ## Delete message
 
@@ -138,15 +139,15 @@ https://daft-evox.herokuapp.com/messages/edit/15?message_body=Guten%20Tag
 
 `DELETE /messages/delete/{msg_id}`
 
-curl -X 'DELETE' \
-  'https://daft-evox.herokuapp.com/messages/delete/15' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMTYzNTA0MH0.aB_GhVF2HUE6WrV6i3-HX_OA4VPMveyL8bW3JcGueOE'
+	curl -X 'DELETE' \
+ 	 'https://daft-evox.herokuapp.com/messages/delete/15' \
+ 	 -H 'accept: application/json' \
+ 	 -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMTYzNTA0MH0.aB_GhVF2HUE6WrV6i3-HX_OA4VPMveyL8bW3JcGueOE'
 
-Request URL
+#### Request URL
 https://daft-evox.herokuapp.com/messages/delete/15
 
 ### Response body
-[
-  "Message Successfully Deleted"
-]
+	[
+ 	 "Message Successfully Deleted"
+	]
