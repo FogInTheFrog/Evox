@@ -6,9 +6,10 @@ from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
 from typing import Optional
 
-from .crud import get_user_by_username
-from .database import get_db
-from .schemas import User, TokenData
+# from .crud import get_user_by_username
+# from .database import get_db
+# from .schemas import User, TokenData
+from . import crud, database, schemas
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 

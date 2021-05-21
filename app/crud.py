@@ -1,8 +1,8 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from . import models
-from .login import validate_token
+from . import models, login
+# from .login import validate_token
 
 
 def get_messages(db: Session):
