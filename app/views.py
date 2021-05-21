@@ -4,10 +4,9 @@ from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm
 from datetime import timedelta
 
-from .crud import insert_new_message
 from .login import oauth2_scheme
 
-from . import crud, schemas
+from . import schemas, crud
 
 from .database import get_db
 from .login import get_current_user, authenticate_user, ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
