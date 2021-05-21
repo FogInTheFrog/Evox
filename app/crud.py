@@ -9,10 +9,9 @@ def get_messages(db: Session):
 
 
 def get_message_by_id(db: Session, message_id: int):
-    msg_dict = db.query(models.Message).filter(models.Message.MessageID == message_id)
-    if not msg_dict:
+    msg_dict = db.query(models.Message).filter(models.Message.MessageID == message_id).first()
+    if msg_dict is None:
         raise HTTPException(status_code=404, detail="Message does not exist.")
-    msg_dict.one()
     msg_dict.Views = msg_dict.Views + 1
     db.commit()
     return (
