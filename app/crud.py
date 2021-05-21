@@ -10,8 +10,10 @@ def get_messages(db: Session):
 
 def get_message_by_id(db: Session, message_id: int):
     msg_dict = db.query(models.Message).filter(models.Message.MessageID == message_id).first()
-    db.execute("UPDATE messages SET Views = {} WHERE messages.MessageID = {}".format(
-        msg_dict.Views + 1, msg_dict.MessageID)
+    views = msg_dict.Views + 1
+    msg_id = msg_dict.MessageID
+    db.execute("UPDATE messages SET Views = {} WHERE MessageID = {}".format(
+        views, msg_id)
     )
     return (
         msg_dict
