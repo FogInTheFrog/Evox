@@ -24,7 +24,7 @@ def insert_new_message(db: Session, body: str):
     if 160 >= body.__len__() > 0:
         db.begin()
         msg_id = db.execute("SELECT nextval('next_msg_id')")
-        db.execute("INSERT INTO messages VALUES (?)", (msg_id, body,))
+        db.execute("INSERT INTO messages VALUES (?, ?)", (msg_id, body,))
         db.commit()
         return msg_id
     raise HTTPException(status_code=401, detail="Incorrect message length.")

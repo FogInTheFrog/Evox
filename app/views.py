@@ -51,7 +51,7 @@ async def get_messages(msg_id: int, db: Session = Depends(get_db)):
     return db_messages
 
 
-@router.post("/create", status_code=201)
+@router.post("/messages/create", status_code=201)
 async def create_message(message_body: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     if validate_token(token):
         new_msg_id = insert_new_message(db, message_body)
