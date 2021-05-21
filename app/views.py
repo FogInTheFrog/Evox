@@ -23,7 +23,7 @@ async def get_messages(db: Session = Depends(get_db)):
 
 @router.get("/users/me", response_model=schemas.User)
 async def read_users_me(current_user: User = Depends(get_current_user)):
-    return current_user
+    return {current_user.Username, current_user.Fullname}
 
 
 @router.post("/token")
