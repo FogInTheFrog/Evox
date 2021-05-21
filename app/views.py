@@ -4,13 +4,11 @@ from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm
 from datetime import timedelta
 
-# from .crud import insert_new_message
-# from .login import oauth2_scheme
-
-from . import schemas, crud, login
-
+from . import schemas, crud
+from .crud import insert_new_message
 from .database import get_db
-from .login import get_current_user, authenticate_user, ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
+from .login import get_current_user, authenticate_user, ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, oauth2_scheme, \
+    validate_token
 from .schemas import User
 
 router = APIRouter()
@@ -55,6 +53,8 @@ async def get_messages(msg_id: int, db: Session = Depends(get_db)):
 
 @router.post("/create", status_code=201)
 async def create_message(message_body: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    new_msg_id = insert_new_message(db, token, message_body)
-    if new_msg_id:
+    if validate_token(token):
+        new_msg_id = insert_new_message(db, message_body)
         return {"messageID": new_msg_id, "content": message_body}
+    else:
+        raise HTTPException(status_code=403, detail="Invalid token or expired token.")
