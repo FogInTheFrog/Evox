@@ -42,17 +42,17 @@
 `GET /messages/{msg_id}`
 
 	curl -X 'GET' 'https:/curl -X 'GET' \
-  'https://daft-evox.herokuapp.com/messages/13' \
-  -H 'accept: application/json'
+ 	'https://daft-evox.herokuapp.com/messages/13' \
+  	-H 'accept: application/json'
 
 
 ### Response body
 
-{
-  "MessageID": 13,
-  "Body": "Henlo Worlnd",
-  "Views": 1
-}
+	{
+  	"MessageID": 13,
+  	"Body": "Henlo Worlnd",
+  	"Views": 1
+	}
 
 
 ## Get message specified by id
@@ -61,18 +61,16 @@
 
 `GET /messages/{msg_id}`
 
-	curl -X 'GET' 'https:/curl -X 'GET' \
-  'https://daft-evox.herokuapp.com/messages/13' \
-  -H 'accept: application/json'
+	curl -X 'GET' 'https:/curl -X 'GET' https://daft-evox.herokuapp.com/messages/13 -H 'accept: application/json
 
 
 ### Response body
 
-{
-  "MessageID": 13,
-  "Body": "Henlo Worlnd",
-  "Views": 1
-}
+	{
+	  "MessageID": 13,
+	  "Body": "Henlo Worlnd",
+ 	  "Views": 1
+	}
 
 
 ## Authorize to have access to create, edit and delete messages. Token is valid for 30 minutes
@@ -81,19 +79,15 @@
 
 `POST /token`
 
-curl -X 'POST' \
-  'https://daft-evox.herokuapp.com/token' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/x-www-form-urlencoded' \
-  -d 'grant_type=password&username=admin&password={Iaintgonnatellyou}&scope=&client_id=&client_secret='
+	curl -X 'POST' https://daft-evox.herokuapp.com/token -H 'accept: application/json' -H 'Content-Type: application/x-www-form-urlencoded' -d 'grant_type=password&username=admin&password={Iaintgonnatellyou}&scope=&client_id=&client_secret='
 
 
 ### Response body
 
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMTYzNDgzM30.YkaDyfywJRu739eTJHUGVUQJ-HkVIgG11VZQ7X05klM",
-  "token_type": "bearer"
-}
+	{
+	  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMTYzNDgzM30.YkaDyfywJRu739eTJHUGVUQJ-HkVIgG11VZQ7X05klM",
+ 	  "token_type": "bearer"
+	}
 
 
 ## Create a new message
@@ -102,13 +96,10 @@ curl -X 'POST' \
 
 `POST /messages/create`
 
- curl -X 'POST' \
-  'https://daft-evox.herokuapp.com/messages/create?message_body=witam' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMTYzNTA0MH0.aB_GhVF2HUE6WrV6i3-HX_OA4VPMveyL8bW3JcGueOE' \
-  -d ''
+ 	curl -X 'POST' 'https://daft-evox.herokuapp.com/messages/create?message_body=witam' -H 'accept: application/json' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMTYzNTA0MH0.aB_GhVF2HUE6WrV6i3-HX_OA4VPMveyL8bW3JcGueOE' -d
 
-Request URL
+#### Request URL
+
 https://daft-evox.herokuapp.com/messages/create?message_body=witam
 
 
