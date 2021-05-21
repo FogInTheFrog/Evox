@@ -16,6 +16,9 @@ class User(BaseModel):
     full_name: Optional[str] = None
     hashed_password: str
 
+    class Config:
+        orm_mode = True
+
 
 class Token(BaseModel):
     access_token: str
